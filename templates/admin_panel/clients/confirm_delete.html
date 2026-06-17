@@ -1,0 +1,44 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Удаление клиента | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/clients/confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="card-header">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Подтверждение удаления</h3>
+        </div>
+        <div class="card-body">
+            <div class="warning-icon">
+                <i class="fas fa-user-slash"></i>
+            </div>
+            <div class="client-name">{{ client.name }}</div>
+            <div class="warning-text">
+                Вы уверены, что хотите удалить этого клиента?<br>
+                Это действие нельзя отменить.
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <button type="submit" class="btn-delete">
+                        <i class="fas fa-trash"></i> Да, удалить
+                    </button>
+                    <a href="{% url 'admin_client_view' client.id %}" class="btn-cancel">
+                        <i class="fas fa-times"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/clients/confirm_delete.js' %}"></script>
+{% endblock %}

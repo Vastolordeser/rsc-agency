@@ -1,0 +1,95 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Портфолио | Кейсы и проекты | RSC Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/core/portfolio.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="animated-bg-3d">
+    <div class="grain"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="floating-orb orb-4"></div>
+    <div class="floating-orb orb-5"></div>
+    <canvas id="particlesCanvas" class="particles-canvas"></canvas>
+</div>
+
+<section class="portfolio-hero">
+    <div class="container">
+        <div class="hero-badge">
+            <i class="fas fa-crown"></i> 200+ УСПЕШНЫХ ПРОЕКТОВ
+            <i class="fas fa-globe"></i>
+        </div>
+        <h1>Наши работы<br><span style="font-size: 32px;">Кейсы, которыми мы гордимся</span></h1>
+        <div class="hero-stats">
+            <div class="stat-item"><span class="stat-number" id="statProjects">0</span><span class="stat-label">Проектов</span></div>
+            <div class="stat-item"><span class="stat-number">45+</span><span class="stat-label">Сотрудников</span></div>
+            <div class="stat-item"><span class="stat-number">15+</span><span class="stat-label">Стран</span></div>
+            <div class="stat-item"><span class="stat-number">98%</span><span class="stat-label">Довольных клиентов</span></div>
+            <div class="stat-item"><span class="stat-number">24/7</span><span class="stat-label">Поддержка</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="portfolio-filters" id="filtersContainer">
+        <button class="filter-btn active" data-category="all">Все проекты</button>
+    </div>
+    <div class="projects-grid" id="projectsGrid"><div class="loading"><i class="fas fa-spinner fa-spin"></i> Загрузка проектов...</div></div>
+    <div class="pagination" id="pagination"></div>
+</div>
+
+<section class="news-section">
+    <div class="container">
+        <div class="news-header">
+            <h2><i class="fas fa-newspaper"></i> Новости и сотрудничество</h2>
+            <p>Будьте в курсе последних событий и партнёрств</p>
+        </div>
+        <div class="news-grid" id="newsGrid"></div>
+    </div>
+</section>
+
+<section class="reviews-section">
+    <div class="container">
+        <h2 class="section-title">❤️ Что говорят клиенты</h2>
+        <p class="section-subtitle">Более 200 довольных компаний по всему миру</p>
+        <div class="reviews-slider" id="reviewsSlider"></div>
+    </div>
+</section>
+
+<section class="clients-section">
+    <div class="container">
+        <h3 class="clients-title">🌐 Нам доверяют компании по всему миру</h3>
+        <div class="clients-marquee-wrapper" style="overflow: hidden;">
+            <div class="clients-marquee" id="clientsMarquee"></div>
+        </div>
+    </div>
+</section>
+
+<div class="ai-chat">
+    <div class="chat-button" id="chatButton">
+        <i class="fas fa-robot"></i>
+    </div>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h4><i class="fas fa-robot"></i> AI Помощник RSC</h4>
+            <button class="chat-close" id="chatClose">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message bot">Привет! Я AI-помощник RSC Agency. Чем могу помочь? Расскажу о проектах, услугах или отвечу на вопросы! 🚀</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Спроси меня о чём угодно...">
+            <button class="chat-send" id="chatSend"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/core/portfolio.js' %}"></script>
+{% endblock %}

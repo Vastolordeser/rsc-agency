@@ -1,0 +1,225 @@
+﻿/* confirm_delete.css - Стили для страницы подтверждения удаления */
+
+/* Анимации */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes pulseRed {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(255, 68, 68, 0);
+    }
+}
+
+/* Контейнер */
+.delete-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 50px auto;
+    animation: fadeInScale 0.4s ease;
+}
+
+/* Карточка удаления */
+.delete-card {
+    background: #111118;
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid rgba(184,115,51,0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.delete-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff4444, #ff8888, #ff4444);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.delete-card:hover::before {
+    transform: scaleX(1);
+}
+
+.delete-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 68, 68, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Иконка удаления */
+.delete-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 68, 68, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    animation: pulseRed 2s infinite;
+}
+
+.delete-icon i {
+    font-size: 40px;
+    color: #ff4444;
+}
+
+/* Заголовок */
+.delete-title {
+    color: #ff4444;
+    margin-bottom: 15px;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* Текст */
+.delete-text {
+    color: #b0b0b0;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.service-name {
+    color: #b87333;
+    font-weight: 600;
+}
+
+/* Предупреждение */
+.warning-box {
+    background: rgba(255, 68, 68, 0.1);
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    border-left: 3px solid #ff4444;
+}
+
+.warning-box p {
+    color: #b0b0b0;
+    font-size: 14px;
+    margin: 0;
+}
+
+.warning-box i {
+    color: #ff4444;
+    margin-right: 8px;
+}
+
+/* Кнопки действий */
+.delete-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-delete-confirm {
+    padding: 12px 28px;
+    background: #ff4444;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-delete-confirm::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-delete-confirm:hover::before {
+    left: 100%;
+}
+
+.btn-delete-confirm:hover {
+    background: #cc0000;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 68, 68, 0.3);
+}
+
+.btn-delete-cancel {
+    padding: 12px 28px;
+    background: rgba(184,115,51,0.2);
+    border: 1px solid rgba(184,115,51,0.3);
+    border-radius: 12px;
+    color: #b87333;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.btn-delete-cancel:hover {
+    background: rgba(184,115,51,0.3);
+    transform: translateY(-3px);
+    color: #e8a05e;
+}
+
+/* Адаптив */
+@media (max-width: 640px) {
+    .delete-container {
+        padding: 15px;
+        margin: 30px auto;
+    }
+    
+    .delete-card {
+        padding: 30px 20px;
+    }
+    
+    .delete-title {
+        font-size: 24px;
+    }
+    
+    .delete-text {
+        font-size: 14px;
+    }
+    
+    .delete-actions {
+        flex-direction: column;
+    }
+    
+    .btn-delete-confirm,
+    .btn-delete-cancel {
+        justify-content: center;
+    }
+}

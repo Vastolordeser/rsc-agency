@@ -1,0 +1,366 @@
+﻿:root {
+    --accent: #b87333;
+    --accent-light: #e8a05e;
+    --accent-dark: #9a5a2a;
+    --bg-dark: #0a0a0f;
+    --bg-card: #111118;
+    --text-secondary: #b0b0b0;
+    --gradient-gold: linear-gradient(135deg, #b87333, #e8a05e, #d48c4a);
+    --gradient-card: linear-gradient(135deg, #111118, #0d0d12);
+    --shadow-glow: 0 10px 30px rgba(184,115,51,0.2);
+    --shadow-glow-hover: 0 20px 50px rgba(184,115,51,0.4);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.employees-container {
+    padding: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    animation: fadeInUp 0.5s ease;
+}
+
+/* ========== ШАПКА ========== */
+.employees-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.employees-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, var(--accent), var(--accent-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Кнопка создания */
+.btn-create {
+    background: var(--gradient-gold);
+    padding: 14px 28px;
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(184,115,51,0.3);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-create:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--shadow-glow-hover);
+    gap: 15px;
+}
+
+.btn-create:active {
+    transform: scale(0.95);
+}
+
+/* ========== СЕТКА КАРТОЧЕК ========== */
+.employees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 25px;
+}
+
+.employee-card {
+    background: var(--gradient-card);
+    border-radius: 28px;
+    border: 1px solid rgba(184,115,51,0.15);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.employee-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-glow-hover);
+}
+
+.employee-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.employee-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* ========== АВАТАР ========== */
+.employee-avatar {
+    position: relative;
+    height: 140px;
+    background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.employee-avatar img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    box-shadow: var(--shadow-glow);
+    transition: transform 0.3s;
+}
+
+.employee-card:hover .employee-avatar img {
+    transform: scale(1.05);
+}
+
+.avatar-placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(184,115,51,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    color: var(--accent);
+    border: 3px solid var(--accent);
+}
+
+.status-dot {
+    position: absolute;
+    bottom: 8px;
+    right: 20px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-card);
+}
+
+.status-dot-active {
+    background: #10b981;
+    box-shadow: 0 0 8px #10b981;
+}
+
+.status-dot-inactive {
+    background: #6c6c7a;
+}
+
+/* ========== ИНФОРМАЦИЯ ========== */
+.employee-info {
+    padding: 18px 20px;
+    text-align: center;
+}
+
+.employee-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.online-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #10b981;
+    background: rgba(16,185,129,0.12);
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.online-indicator i {
+    font-size: 6px;
+}
+
+.employee-position {
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+.employee-email {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    word-break: break-all;
+}
+
+/* ========== ФУТЕР ========== */
+.employee-footer {
+    padding: 12px 20px;
+    background: rgba(0,0,0,0.2);
+    font-size: 11px;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.last-active {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.online-text {
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ========== ДЕЙСТВИЯ ========== */
+.employee-actions {
+    display: flex;
+    gap: 8px;
+    padding: 12px 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.employee-actions a,
+.employee-actions form {
+    flex: 1;
+    min-width: 0;
+}
+
+.employee-actions a,
+.employee-actions button {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Кнопка Редактировать */
+.employee-actions a:first-child {
+    background: rgba(59,130,246,0.15);
+    color: #3b82f6;
+}
+
+.employee-actions a:first-child:hover {
+    background: #3b82f6;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+}
+
+/* Кнопка Сброс пароля */
+.employee-actions a:nth-child(2) {
+    background: rgba(245,158,11,0.15);
+    color: #f59e0b;
+}
+
+.employee-actions a:nth-child(2):hover {
+    background: #f59e0b;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(245,158,11,0.3);
+}
+
+/* Кнопка Удалить */
+.employee-actions button {
+    background: rgba(239,68,68,0.15);
+    color: #ef4444;
+}
+
+.employee-actions button:hover {
+    background: #ef4444;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(239,68,68,0.3);
+}
+
+/* ========== ПУСТОЕ СОСТОЯНИЕ ========== */
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    background: var(--bg-card);
+    border-radius: 32px;
+    grid-column: 1/-1;
+}
+
+.empty-state i {
+    font-size: 64px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0.4;
+}
+
+.empty-state h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: var(--text-secondary);
+}
+
+/* ========== АДАПТИВ ========== */
+@media (max-width: 768px) {
+    .employees-container {
+        padding: 20px;
+    }
+    .employees-grid {
+        grid-template-columns: 1fr;
+    }
+    .employees-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn-create {
+        justify-content: center;
+    }
+    .employee-actions {
+        flex-wrap: wrap;
+    }
+    .employee-actions a,
+    .employee-actions form {
+        flex: 1;
+        min-width: 80px;
+    }
+}

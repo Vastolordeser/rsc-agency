@@ -1,0 +1,43 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Редактирование заявки #{{ lead.id }} | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/leads/edit.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="edit-container">
+    <div class="edit-header"><h1><i class="fas fa-edit"></i> Редактирование заявки #{{ lead.id }}</h1></div>
+    <div class="form-card">
+        <div class="form-header"><i class="fas fa-user-circle"></i><h3>Информация о клиенте</h3></div>
+        <div class="form-body">
+            {% if messages %}{% for message in messages %}<div class="alert alert-{{ message.tags }}">{{ message }}</div>{% endfor %}{% endif %}
+            <form method="post" id="editForm">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="form-group"><label><i class="fas fa-key"></i> Логин</label><input type="text" value="{{ lead.user.username|default:lead.name }}" readonly><span class="input-hint">Логин нельзя изменить</span></div>
+                    <div class="form-group"><label><i class="fas fa-user"></i> Имя</label><input type="text" name="first_name" value="{{ client.first_name|default:lead.name }}"></div>
+                    <div class="form-group"><label><i class="fas fa-user-friends"></i> Фамилия</label><input type="text" name="last_name" value="{{ client.last_name|default:'' }}"></div>
+                    <div class="form-group"><label><i class="fas fa-user-tag"></i> Отчество</label><input type="text" name="patronymic" value="{{ client.patronymic|default:'' }}"></div>
+                    <div class="form-group"><label><i class="fas fa-envelope"></i> Email *</label><input type="email" name="email" value="{{ lead.email }}" required></div>
+                    <div class="form-group"><label><i class="fas fa-phone"></i> Телефон *</label><input type="tel" name="phone" value="{{ lead.phone }}" required></div>
+                </div>
+                <div class="divider"></div>
+                <div class="form-header" style="margin-top: 10px; margin-bottom: 20px; padding: 0 0 10px 0;"><i class="fas fa-cog"></i><h3>Детали заявки</h3></div>
+                <div class="form-grid">
+                    <div class="form-group"><label><i class="fas fa-tag"></i> Статус</label><select name="status"><option value="new" {% if lead.status == 'new' %}selected{% endif %}>🟡 Новая</option><option value="processing" {% if lead.status == 'processing' %}selected{% endif %}>🔵 В обработке</option><option value="completed" {% if lead.status == 'completed' %}selected{% endif %}>🟢 Завершена</option><option value="rejected" {% if lead.status == 'rejected' %}selected{% endif %}>🔴 Отклонена</option></select></div>
+                    <div class="form-group"><label><i class="fas fa-cogs"></i> Услуга</label><select name="service"><option value="">-- Выберите услугу --</option>{% for service in services %}<option value="{{ service.id }}" {% if lead.service.id == service.id %}selected{% endif %}>{{ service.name }}</option>{% endfor %}</select></div>
+                    <div class="form-group full-width"><label><i class="fas fa-comment"></i> Сообщение</label><textarea name="message" rows="4">{{ lead.message|default:'' }}</textarea></div>
+                </div>
+                <div class="form-actions"><button type="submit" name="save" class="btn-save"><i class="fas fa-save"></i> Сохранить</button><button type="submit" name="save_and_continue" class="btn-save-continue"><i class="fas fa-save"></i> Сохранить и продолжить</button><a href="{% url 'admin_leads' %}" class="btn-cancel"><i class="fas fa-times"></i> Отмена</a></div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/leads/edit.js' %}"></script>
+{% endblock %}

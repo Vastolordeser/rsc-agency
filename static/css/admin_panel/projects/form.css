@@ -1,0 +1,258 @@
+﻿/* form.css - Стили для формы создания/редактирования проекта */
+
+:root {
+    --accent: #b87333;
+    --accent-light: #e8a05e;
+    --bg-dark: #0a0a0f;
+    --bg-card: #111118;
+    --text-secondary: #b0b0b0;
+    --gradient-gold: linear-gradient(135deg, #b87333, #e8a05e);
+    --shadow-glow: 0 10px 30px rgba(184,115,51,0.2);
+    --shadow-glow-hover: 0 15px 40px rgba(184,115,51,0.3);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 25px;
+    animation: fadeInUp 0.5s ease;
+}
+
+.form-card {
+    background: linear-gradient(135deg, #111118, #0d0d12);
+    border-radius: 28px;
+    border: 1px solid rgba(184,115,51,0.15);
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.form-card:hover {
+    border-color: rgba(184,115,51,0.3);
+    box-shadow: var(--shadow-glow);
+}
+
+.card-header {
+    padding: 20px 25px;
+    background: rgba(184,115,51,0.05);
+    border-bottom: 1px solid rgba(184,115,51,0.1);
+    animation: slideInLeft 0.3s ease;
+}
+
+.card-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 0;
+}
+
+.card-header h2 i {
+    color: var(--accent);
+    margin-right: 8px;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+    animation: scaleIn 0.3s ease backwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.05s; }
+.form-group:nth-child(2) { animation-delay: 0.1s; }
+.form-group:nth-child(3) { animation-delay: 0.15s; }
+.form-group:nth-child(4) { animation-delay: 0.2s; }
+.form-group:nth-child(5) { animation-delay: 0.25s; }
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group label i {
+    color: var(--accent);
+    margin-right: 6px;
+    width: 18px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: #0a0a0f;
+    border: 1px solid #2a2a36;
+    border-radius: 16px;
+    color: white;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,115,51,0.1);
+    transform: translateY(-2px);
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: rgba(184,115,51,0.4);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-group input[type="file"] {
+    padding: 8px;
+    background: #0a0a0f;
+    cursor: pointer;
+}
+
+.form-group input[type="file"]::-webkit-file-upload-button {
+    background: var(--gradient-gold);
+    border: none;
+    padding: 6px 15px;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.2s;
+}
+
+.form-group input[type="file"]::-webkit-file-upload-button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-glow);
+}
+
+/* Select Styles */
+select.filter-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b87333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+}
+
+/* Image Preview */
+.image-preview {
+    margin-top: 10px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 16px;
+    border: 2px solid var(--accent);
+    transition: all 0.3s;
+}
+
+.image-preview img:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-glow);
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    animation: fadeInUp 0.4s ease;
+}
+
+.btn-save, .btn-cancel {
+    flex: 1;
+    padding: 12px;
+    border-radius: 40px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.btn-save {
+    background: var(--gradient-gold);
+    color: white;
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+    gap: 12px;
+}
+
+.btn-cancel {
+    background: rgba(17,17,24,0.8);
+    border: 1px solid rgba(184,115,51,0.2);
+    color: var(--text-secondary);
+}
+
+.btn-cancel:hover {
+    border-color: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 15px;
+    }
+    
+    .card-header {
+        padding: 15px 20px;
+    }
+    
+    .card-header h2 {
+        font-size: 18px;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+    }
+}

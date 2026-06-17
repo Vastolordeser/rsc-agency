@@ -1,0 +1,32 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Просмотр сообщения | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/messages/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="detail-card">
+        <div class="card-header"><i class="fas fa-envelope"></i><h2>Сообщение от {{ message.name }}</h2></div>
+        <div class="card-body">
+            <div class="info-row"><div class="info-label"><i class="fas fa-user"></i> Отправитель:</div><div class="info-value">{{ message.name }}</div></div>
+            <div class="info-row"><div class="info-label"><i class="fas fa-envelope"></i> Email:</div><div class="info-value">{{ message.email }}</div></div>
+            <div class="info-row"><div class="info-label"><i class="fas fa-phone"></i> Телефон:</div><div class="info-value">{{ message.phone|default:"Не указан" }}</div></div>
+            <div class="info-row"><div class="info-label"><i class="fas fa-calendar-alt"></i> Дата:</div><div class="info-value">{{ message.created_at|date:"d.m.Y H:i" }}</div></div>
+            <div class="info-row"><div class="info-label"><i class="fas fa-info-circle"></i> Статус:</div><div class="info-value">{% if message.is_processed %}Обработано{% else %}Ожидает ответа{% endif %}</div></div>
+            <div class="info-row"><div class="info-label"><i class="fas fa-comment"></i> Сообщение:</div><div class="info-value"><div class="message-text">{{ message.message|linebreaksbr }}</div></div></div>
+            <div class="action-buttons">
+                <a href="{% url 'admin_messages' %}" class="btn-back"><i class="fas fa-arrow-left"></i> Назад</a>
+                <a href="{% url 'admin_message_reply' message.id %}" class="btn-reply"><i class="fas fa-reply"></i> Ответить</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/messages/detail.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,114 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Оставить заявку | RSC Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/leads/lead_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="lead-bg" id="particlesContainer">
+    <div class="grain"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+</div>
+
+<div class="lead-page">
+    <div class="lead-container">
+        <div class="lead-header">
+            <h1>Готовы начать?</h1>
+            <p>Оставьте заявку и мы свяжемся с вами</p>
+        </div>
+
+        <div class="lead-grid">
+            <div class="services-block">
+                <div class="services-title">
+                    <i class="fas fa-cogs"></i> Наши услуги
+                </div>
+                <div class="category-tabs" id="categoryTabs"></div>
+                <div class="services-list" id="servicesList">
+                    <div style="text-align:center; padding:30px;">Загрузка...</div>
+                </div>
+            </div>
+
+            <div class="form-block">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="selected-service-info" id="selectedServiceInfo">
+                    <p><i class="fas fa-check-circle"></i> Выбрано: <strong id="selectedServiceName"></strong></p>
+                </div>
+
+                <form method="post" id="leadForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="service" id="selectedServiceId" value="">
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-key"></i> Логин *</label>
+                        <input type="text" name="login_name" id="login_name" 
+                               value="{{ user.username }}" placeholder="ivan_ivanov" required>
+                        <span class="input-hint"><i class="fas fa-info-circle"></i> Ваш логин для входа в систему</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Имя</label>
+                            <input type="text" name="first_name" id="first_name" 
+                                   value="{{ client.first_name|default:'' }}" placeholder="Иван">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-user-friends"></i> Фамилия</label>
+                            <input type="text" name="last_name" id="last_name" 
+                                   value="{{ client.last_name|default:'' }}" placeholder="Иванов">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-user-tag"></i> Отчество</label>
+                        <input type="text" name="patronymic" id="patronymic" 
+                               value="{{ client.patronymic|default:'' }}" placeholder="Иванович">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email *</label>
+                            <input type="email" name="email" id="email" 
+                                   value="{{ user.email }}" placeholder="example@mail.ru" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Телефон *</label>
+                            <input type="tel" name="phone" id="phone" 
+                                   value="{{ client.phone|default:'' }}" placeholder="+7 (999) 123-45-67" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-comment"></i> Сообщение</label>
+                        <textarea name="message" id="message" placeholder="Расскажите о вашем проекте..." rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Отправить заявку
+                    </button>
+                    
+                    <div class="form-footer">
+                        <i class="fas fa-shield-alt"></i> Ваши данные защищены
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const servicesData = {{ services_json|safe }};
+</script>
+<script src="{% static 'js/leads/lead_form.js' %}"></script>
+{% endblock %}

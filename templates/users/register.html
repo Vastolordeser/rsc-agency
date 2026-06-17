@@ -1,0 +1,156 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Регистрация | RSC Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/users/register.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="register-page">
+    <div class="register-bg">
+        <div class="grain"></div>
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+        <div class="floating-orb orb-4"></div>
+    </div>
+
+    <div class="register-container">
+        <div class="register-visual">
+            <h2>Присоединяйтесь!</h2>
+            <p>Создайте аккаунт и начните работу с RSC Agency</p>
+            <div class="register-features">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-gem"></i></div>
+                    <div class="feature-text">
+                        <h4>Бесплатная регистрация</h4>
+                        <p>Никаких скрытых платежей</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-chart-simple"></i></div>
+                    <div class="feature-text">
+                        <h4>Доступ к статистике</h4>
+                        <p>Следите за эффективностью</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <div class="feature-text">
+                        <h4>Поддержка 24/7</h4>
+                        <p>Всегда на связи</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="register-form-card">
+            <h3>Регистрация</h3>
+            <div class="form-subtitle">
+                <i class="fas fa-user-plus"></i> Заполните форму
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert-error">
+                    <i class="fas fa-exclamation-triangle"></i> {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" id="registerForm">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_username"><i class="fas fa-key"></i> Логин *</label>
+                    <input type="text" name="username" id="id_username" class="form-control" placeholder="Только латиница, без пробелов" required>
+                    <small class="text-muted">Используется для входа в систему</small>
+                    {% if form.username.errors %}
+                        <ul class="errorlist">{% for error in form.username.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_first_name"><i class="fas fa-user"></i> Имя *</label>
+                    <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Ваше имя" required>
+                    {% if form.first_name.errors %}
+                        <ul class="errorlist">{% for error in form.first_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_last_name"><i class="fas fa-user-friends"></i> Фамилия</label>
+                    <input type="text" name="last_name" id="id_last_name" class="form-control" placeholder="Ваша фамилия">
+                    {% if form.last_name.errors %}
+                        <ul class="errorlist">{% for error in form.last_name.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_patronymic"><i class="fas fa-user-tag"></i> Отчество</label>
+                    <input type="text" name="patronymic" id="id_patronymic" class="form-control" placeholder="Ваше отчество">
+                    {% if form.patronymic.errors %}
+                        <ul class="errorlist">{% for error in form.patronymic.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_email"><i class="fas fa-envelope"></i> Email *</label>
+                    <input type="email" name="email" id="id_email" class="form-control" placeholder="example@mail.ru" required>
+                    {% if form.email.errors %}
+                        <ul class="errorlist">{% for error in form.email.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_phone"><i class="fas fa-phone"></i> Телефон *</label>
+                    <input type="tel" name="phone" id="id_phone" class="form-control" placeholder="+7 (999) 123-45-67" required>
+                    {% if form.phone.errors %}
+                        <ul class="errorlist">{% for error in form.phone.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password1"><i class="fas fa-lock"></i> Пароль *</label>
+                    <div class="password-wrapper">
+                        <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Введите пароль" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('id_password1')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <small class="text-muted">Минимум 4 символа</small>
+                    {% if form.password1.errors %}
+                        <ul class="errorlist">{% for error in form.password1.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_password2"><i class="fas fa-lock"></i> Подтверждение пароля *</label>
+                    <div class="password-wrapper">
+                        <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Повторите пароль" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('id_password2')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    {% if form.password2.errors %}
+                        <ul class="errorlist">{% for error in form.password2.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                    {% endif %}
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-user-check"></i> Зарегистрироваться
+                </button>
+            </form>
+            <div class="auth-link">
+                Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/users/register.js' %}"></script>
+{% endblock %}

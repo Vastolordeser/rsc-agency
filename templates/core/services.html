@@ -1,0 +1,65 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Услуги и цены | RSC Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/core/services.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="animated-bg-3d">
+    <div class="grain-overlay"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="floating-orb orb-4"></div>
+    <div class="floating-orb orb-5"></div>
+    <div class="particles-container" id="particlesContainer"></div>
+</div>
+
+<section class="services-hero">
+    <div class="container">
+        <div class="hero-badge">
+            <i class="fas fa-crown"></i> PREMIUM SOLUTIONS
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <h1>Наши <span>услуги</span><br><span style="font-size: 32px; display: block; margin-top: 10px;">для вашего бизнеса</span></h1>
+        <p class="subtitle">Полный спектр digital-услуг для роста вашего бизнеса</p>
+        <div class="hero-stats">
+            <div class="hero-stat-item"><span class="hero-stat-number" id="statTotal">0</span><span class="hero-stat-label">Услуг</span></div>
+            <div class="hero-stat-item"><span class="hero-stat-number">200+</span><span class="hero-stat-label">Клиентов</span></div>
+            <div class="hero-stat-item"><span class="hero-stat-number">500+</span><span class="hero-stat-label">Проектов</span></div>
+            <div class="hero-stat-item"><span class="hero-stat-number">15+</span><span class="hero-stat-label">Стран</span></div>
+            <div class="hero-stat-item"><span class="hero-stat-number">98%</span><span class="hero-stat-label">Успеха</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="services-filters" id="filtersContainer">
+        <button class="filter-pill active" data-category="all">Все услуги</button>
+    </div>
+    <div id="servicesContainer">
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Загрузка услуг...</p>
+        </div>
+    </div>
+    <div class="pagination" id="pagination"></div>
+    <div class="info-section scroll-reveal">
+        <div class="info-card"><i class="fas fa-headset"></i><h3>Поддержка 24/7</h3><p>Наши менеджеры всегда на связи. Отвечаем на вопросы и помогаем в любое время суток.</p></div>
+        <div class="info-card"><i class="fas fa-chart-simple"></i><h3>Прозрачная отчётность</h3><p>Детальная аналитика каждого этапа работы в реальном времени. Вы всегда видите результат.</p></div>
+        <div class="info-card"><i class="fas fa-rocket"></i><h3>Быстрый старт</h3><p>Запускаем рекламные кампании в кратчайшие сроки — от 3 дней после утверждения стратегии.</p></div>
+    </div>
+    <div class="cta-block scroll-reveal">
+        <h2>Готовы начать?</h2>
+        <p>Оставьте заявку и получите бесплатную консультацию</p>
+        <button class="cta-button" onclick="window.location.href='/leads/create/'"><span>Обсудить проект</span> <i class="fas fa-arrow-right"></i></button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/core/services.js' %}"></script>
+{% endblock %}

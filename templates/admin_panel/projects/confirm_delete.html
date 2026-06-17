@@ -1,0 +1,36 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Удаление проекта | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/projects/confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="card-header">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="card-body">
+            <div class="project-name">{{ project.name }}</div>
+            <div class="warning-text">
+                Вы уверены, что хотите удалить этот проект?<br>
+                Это действие нельзя отменить.
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <button type="submit" class="btn-delete">Да, удалить</button>
+                    <a href="{% url 'admin_projects' %}" class="btn-cancel">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/projects/confirm_delete.js' %}"></script>
+{% endblock %}

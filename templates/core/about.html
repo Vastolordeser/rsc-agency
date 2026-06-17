@@ -1,0 +1,168 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}О нас | RSC Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/core/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="animated-bg-3d">
+    <div class="grain-overlay"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="floating-orb orb-4"></div>
+    <div class="floating-orb orb-5"></div>
+    <div class="particles-container" id="particlesContainer"></div>
+</div>
+
+<section class="about-hero">
+    <div class="container">
+        <div class="hero-badge">
+            <i class="fas fa-crown"></i> О КОМПАНИИ
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <h1>RSC Agency</h1>
+        <p class="subtitle">Создаём рекламу, которая работает на результат</p>
+        <div class="hero-buttons">
+            <a href="{% url 'lead_create' %}" class="btn-glow">Начать проект →</a>
+            <a href="#team" class="btn-outline-glow">Познакомиться с командой →</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat-item"><span class="hero-stat-number" id="statYears">0</span><span class="hero-stat-label">лет на рынке</span></div>
+            <div class="hero-stat-item"><span class="hero-stat-number" id="statProjects">0</span><span class="hero-stat-label">проектов</span></div>
+            <div class="hero-stat-item"><span class="hero-stat-number" id="statClients">0</span><span class="hero-stat-label">клиентов</span></div>
+            <div class="hero-stat-item"><span class="hero-stat-number" id="statSatisfaction">0</span><span class="hero-stat-label">% успеха</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <section class="stats-showcase scroll-reveal">
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-calendar-alt"></i></div><div class="stat-number" id="statYears2">0</div><div class="stat-label">лет на рынке</div><div class="stat-trend">+40% рост за год</div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-rocket"></i></div><div class="stat-number" id="statProjects2">0</div><div class="stat-label">успешных проектов</div><div class="stat-trend">+58 проектов в 2024</div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-smile"></i></div><div class="stat-number" id="statClients2">0</div><div class="stat-label">постоянных клиентов</div><div class="stat-trend">92% возвращаются</div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-number" id="statSatisfaction2">0</div><div class="stat-label">% довольных клиентов</div><div class="stat-trend">рейтинг 4.9/5</div></div>
+        </div>
+    </section>
+
+    <section class="about-story scroll-reveal">
+        <div class="story-grid">
+            <div class="story-text">
+                <h2>Наша <span>история</span></h2>
+                <div class="timeline">
+                    <div class="timeline-item"><div class="timeline-year">2020</div><div class="timeline-desc">Основание агентства с командой из 3 человек</div></div>
+                    <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-desc">Первый крупный клиент + запуск SMM-направления</div></div>
+                    <div class="timeline-item"><div class="timeline-year">2022</div><div class="timeline-desc">Расширение команды до 15 человек, открытие SEO-отдела</div></div>
+                    <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-desc">+200% обороту, запуск разработки сайтов</div></div>
+                    <div class="timeline-item"><div class="timeline-year">2024</div><div class="timeline-desc">Топ-5 рекламных агентств Москвы</div></div>
+                </div>
+                <div class="mission-block"><h3>Наша миссия</h3><p>Делать рекламу, которая не просто привлекает внимание, а реально увеличивает прибыль бизнеса.</p></div>
+            </div>
+            <div class="story-image"><div class="image-placeholder"><i class="fas fa-chart-line"></i></div></div>
+        </div>
+    </section>
+
+    <section class="values-section scroll-reveal">
+        <h2 class="section-title">Наши <span>ценности</span></h2>
+        <p class="section-subtitle">Принципы, на которых построена наша работа</p>
+        <div class="values-grid">
+            <div class="value-card"><div class="value-icon"><i class="fas fa-bullseye"></i></div><h3>Результат</h3><p>Гарантируем достижение KPI. Каждый проект имеет чёткие цели и измеримые результаты.</p><div class="value-metric">+45% средний рост</div></div>
+            <div class="value-card"><div class="value-icon"><i class="fas fa-lightbulb"></i></div><h3>Креативность</h3><p>Нестандартные решения, которые выделяют ваш бренд среди конкурентов.</p><div class="value-metric">150+ идей в год</div></div>
+            <div class="value-card"><div class="value-icon"><i class="fas fa-handshake"></i></div><h3>Доверие</h3><p>Прозрачность, честность, открытость во всём — от стратегии до отчётности.</p><div class="value-metric">98% довольных</div></div>
+            <div class="value-card"><div class="value-icon"><i class="fas fa-rocket"></i></div><h3>Развитие</h3><p>Постоянно учимся, внедряем новые технологии и инструменты.</p><div class="value-metric">30+ сертификатов</div></div>
+        </div>
+    </section>
+
+    <section class="team-section" id="team">
+        <h2 class="section-title">Наша <span>команда</span></h2>
+        <p class="team-subtitle">Профессионалы, которые делают результат</p>
+        <div class="team-grid">
+            <!-- Основатель -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h4>Александр Белов</h4>
+                <p>Основатель и CEO</p>
+                <div class="team-badge">12 лет в маркетинге</div>
+            </div>
+
+            <!-- Стратегия -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h4>Екатерина Волкова</h4>
+                <p>Руководитель стратегии</p>
+                <div class="team-badge">Экс-директор MediaDirection</div>
+            </div>
+
+            <!-- Креативный директор -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h4>Дмитрий Орлов</h4>
+                <p>Креативный директор</p>
+                <div class="team-badge">Победитель AdStars 2023</div>
+            </div>
+
+            <!-- Руководитель SMM -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h4>Анна Морозова</h4>
+                <p>Руководитель SMM</p>
+                <div class="team-badge">ТОП-10 SMM-специалистов РФ</div>
+            </div>
+
+            <!-- Руководитель SEO -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h4>Игорь Соколов</h4>
+                <p>Руководитель SEO</p>
+                <div class="team-badge">8 лет продвижения</div>
+            </div>
+
+            <!-- Руководитель разработки -->
+            <div class="team-card">
+                <div class="team-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h4>Ольга Новикова</h4>
+                <p>Руководитель разработки</p>
+                <div class="team-badge">Fullstack-эксперт</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section scroll-reveal">
+        <h2 class="section-title">Что говорят <span>клиенты</span></h2>
+        <p class="section-subtitle">Более 200 довольных компаний по всему миру</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card"><div class="testimonial-rating">★★★★★</div><div class="testimonial-text">"RSC Agency — это не просто подрядчик, а настоящий партнёр. За 2 года мы увеличили выручку на 156%."</div><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><div class="author-name">Анна Иванова</div><div class="author-position">CEO, ООО "Старт"</div></div></div></div>
+            <div class="testimonial-card"><div class="testimonial-rating">★★★★★</div><div class="testimonial-text">"Профессиональный подход, креативные идеи, всегда на связи. Охваты выросли на 300%."</div><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><div class="author-name">Михаил Петров</div><div class="author-position">Маркетолог, "ТехноСтарт"</div></div></div></div>
+            <div class="testimonial-card"><div class="testimonial-rating">★★★★★</div><div class="testimonial-text">"SMM от RSC Agency — это магия! Увеличили охваты в 5 раз за 3 месяца."</div><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><div class="author-name">Елена Смирнова</div><div class="author-position">Владелец бренда</div></div></div></div>
+        </div>
+    </section>
+
+    <section class="cta-section scroll-reveal">
+        <div class="cta-block">
+            <h3>Готовы к росту?</h3>
+            <p>Оставьте заявку — мы свяжемся с вами в течение 15 минут и предложим стратегию для вашего бизнеса</p>
+            <a href="{% url 'lead_create' %}" class="btn-cta pulse">Получить консультацию →</a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/core/about.js' %}"></script>
+{% endblock %}

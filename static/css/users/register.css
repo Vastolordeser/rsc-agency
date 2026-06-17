@@ -1,0 +1,335 @@
+﻿/* register.css - Стили для страницы регистрации */
+
+:root {
+    --accent: #b87333;
+    --accent-dark: #9a5a2a;
+    --accent-light: #e8a05e;
+    --accent-glow: rgba(184,115,51,0.4);
+    --bg-dark: #0a0a0f;
+    --bg-darker: #050508;
+    --bg-card: #111118;
+    --text-main: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-muted: #6c6c7a;
+    --gradient-gold: linear-gradient(135deg, #b87333, #e8a05e, #d48c4a);
+    --gradient-dark: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+    --shadow-glow: 0 10px 40px rgba(184,115,51,0.2);
+    --shadow-glow-hover: 0 20px 60px rgba(184,115,51,0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.register-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    position: relative;
+}
+
+.register-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.grain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    animation: grainShift 8s infinite;
+}
+
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(1%, 1%); }
+}
+
+.floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.25;
+    animation: floatOrb 25s infinite ease-in-out;
+}
+
+.orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, #b87333, transparent); top: -250px; right: -150px; }
+.orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, #9a5a2a, transparent); bottom: -200px; left: -150px; animation-delay: -7s; }
+.orb-3 { width: 350px; height: 350px; background: radial-gradient(circle, #e8a05e, transparent); top: 40%; left: 20%; animation-delay: -14s; }
+.orb-4 { width: 300px; height: 300px; background: radial-gradient(circle, #d48c4a, transparent); bottom: 20%; right: 15%; animation-delay: -21s; }
+
+@keyframes floatOrb {
+    0%,100% { transform: translate(0,0) scale(1); }
+    25% { transform: translate(60px,-60px) scale(1.1); }
+    50% { transform: translate(-40px,50px) scale(0.95); }
+    75% { transform: translate(30px,30px) scale(1.05); }
+}
+
+.register-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    background: rgba(17, 17, 24, 0.6);
+    backdrop-filter: blur(16px);
+    border-radius: 48px;
+    border: 1px solid rgba(184, 115, 51, 0.25);
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.register-visual {
+    background: linear-gradient(145deg, rgba(184,115,51,0.12), rgba(0,0,0,0.3));
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-visual h2 {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, var(--accent), var(--accent-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+}
+
+.register-visual p {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+.register-features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 20px;
+    padding: 15px;
+    border: 1px solid rgba(184,115,51,0.2);
+    transition: all 0.3s;
+}
+
+.feature-item:hover {
+    transform: translateX(8px);
+    border-color: var(--accent);
+    background: rgba(184,115,51,0.08);
+}
+
+.feature-icon {
+    width: 55px;
+    height: 55px;
+    background: rgba(184,115,51,0.15);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--accent);
+    transition: all 0.3s;
+}
+
+.feature-item:hover .feature-icon {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.05);
+}
+
+.feature-text h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.feature-text p {
+    font-size: 12px;
+    margin: 0;
+}
+
+.register-form-card {
+    padding: 45px;
+}
+
+.register-form-card h3 {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, #fff, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.form-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.form-group label i {
+    margin-right: 8px;
+    color: var(--accent);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.form-control {
+    width: 100%;
+    padding: 14px 18px;
+    background: #0a0a0f;
+    border: 2px solid #2a2a36;
+    border-radius: 20px;
+    color: white;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,115,51,0.15);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.toggle-password:hover {
+    color: var(--accent);
+}
+
+.errorlist {
+    color: #ef4444;
+    font-size: 11px;
+    list-style: none;
+    margin-top: 5px;
+    padding-left: 0;
+}
+
+.alert-error {
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 16px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    color: #ef4444;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.text-muted {
+    font-size: 11px;
+    color: #6c6c7a;
+    margin-top: 5px;
+    display: block;
+}
+
+.btn-submit {
+    width: 100%;
+    background: var(--gradient-gold);
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.auth-link a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .register-container {
+        grid-template-columns: 1fr;
+        margin: 0 15px;
+    }
+    .register-visual {
+        order: 2;
+        padding: 25px;
+    }
+    .register-form-card {
+        order: 1;
+        padding: 30px;
+    }
+    .register-form-card h3 {
+        font-size: 26px;
+    }
+}

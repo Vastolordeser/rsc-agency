@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSC Agency{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="/media/logo/logo.png" alt="RSC Agency">
+                <span class="logo-text">RSC Agency</span>
+            </a>
+            <nav class="navbar">
+                <ul class="nav-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/about/">О нас</a></li>
+                    <li><a href="/services/">Услуги</a></li>
+                    <li><a href="{% url 'portfolio' %}">Портфолио</a></li>
+                    <li><a href="/contacts/">Контакты</a></li>
+                </ul>
+                <div class="nav-right">
+                    {% if user.is_authenticated %}
+                        <div class="user-menu">
+                            <div class="user-name">
+                                <i class="fas fa-user-circle"></i>
+                                {{ user.username }}
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="user-dropdown">
+                                <a href="{% url 'profile' %}"><i class="fas fa-id-card"></i> Профиль</a>
+                                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+                                {% if user.is_staff %}
+                                    <a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Админка</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn-login">Вход</a>
+                        <a href="{% url 'register' %}" class="btn-register">Регистрация</a>
+                    {% endif %}
+                </div>
+                <div class="hamburger"><i class="fas fa-bars"></i></div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+        <footer class="elite-footer">
+        <div class="container">
+            <div class="elite-grid">
+                <div class="elite-col">
+                    <div class="elite-logo">
+                        <i class="fas fa-rocket"></i>
+                        <span>RSC</span>
+                    </div>
+                    <p>Креативное рекламное агентство.</p>
+                    <p class="elite-tagline">Создаём рекламу, которая работает на результат.</p>
+                    <div class="elite-social">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="elite-col">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="/">Главная</a></li>
+                        <li><a href="/about/">О нас</a></li>
+                        <li><a href="/services/">Услуги</a></li>
+                        <li><a href="{% url 'portfolio' %}">Портфолио</a></li>
+                        <li><a href="/contacts/">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="elite-col">
+                    <h4>Контакты</h4>
+                    <ul class="elite-contacts">
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, Тверская, 1</li>
+                        <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@rsc.agency</li>
+                    </ul>
+                </div>
+                <div class="elite-col">
+                    <h4>График</h4>
+                    <ul class="elite-hours">
+                        <li><i class="far fa-clock"></i> Пн–Пт: 10:00 – 19:00</li>
+                        <li><i class="fas fa-headset"></i> Поддержка 24/7</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="elite-bottom">
+                <p>© 2026 RSC Agency</p>
+                <div class="elite-links">
+                    <a href="#">Политика</a>
+                    <span>/</span>
+                    <a href="#">Условия</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.querySelector('.hamburger')?.addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+

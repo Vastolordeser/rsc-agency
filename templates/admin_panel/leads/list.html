@@ -1,0 +1,53 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Управление заявками | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/leads/list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="leads-container">
+    <div class="leads-header">
+        <h1><i class="fas fa-inbox"></i> Управление заявками</h1>
+        <div class="header-actions"><div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="Поиск по логину, имени, email, телефону..."></div><button class="btn-export" onclick="exportLeads()"><i class="fas fa-download"></i> Экспорт CSV</button></div>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-card" data-status="all"><div class="stat-value" id="statAll">0</div><div class="stat-label">Все заявки</div><div class="stat-icon"><i class="fas fa-inbox"></i></div></div>
+        <div class="stat-card" data-status="new"><div class="stat-value" id="statNew">0</div><div class="stat-label">Новые</div><div class="stat-icon"><i class="fas fa-star"></i></div></div>
+        <div class="stat-card" data-status="processing"><div class="stat-value" id="statProcessing">0</div><div class="stat-label">В обработке</div><div class="stat-icon"><i class="fas fa-spinner"></i></div></div>
+        <div class="stat-card" data-status="completed"><div class="stat-value" id="statCompleted">0</div><div class="stat-label">Завершённые</div><div class="stat-icon"><i class="fas fa-check-circle"></i></div></div>
+        <div class="stat-card" data-status="rejected"><div class="stat-value" id="statRejected">0</div><div class="stat-label">Отклонённые</div><div class="stat-icon"><i class="fas fa-times-circle"></i></div></div>
+    </div>
+    <div class="filters-bar"><button class="filter-btn active" data-filter="all">Все заявки</button><button class="filter-btn" data-filter="new">Новые</button><button class="filter-btn" data-filter="processing">В обработке</button><button class="filter-btn" data-filter="completed">Завершённые</button><button class="filter-btn" data-filter="rejected">Отклонённые</button></div>
+    <div class="leads-grid" id="leadsGrid">
+        {% for lead in leads %}
+        <div class="lead-card" data-id="{{ lead.id }}" data-status="{{ lead.status }}" data-login="{{ lead.user.username|lower|default:'' }}" data-name="{{ lead.name|lower }}" data-email="{{ lead.email|lower }}" data-phone="{{ lead.phone }}">
+            <div class="lead-status status-{{ lead.status }}">{{ lead.get_status_display }}</div>
+            <div class="lead-card-content">
+                <div class="lead-login"><i class="fas fa-key"></i> {{ lead.user.username|default:lead.name }}</div>
+                <div class="lead-fio"><i class="fas fa-user"></i> {% with client=lead.user.client_profile.first %}{% if client %}{{ client.last_name|default:'' }} {{ client.first_name|default:'' }} {{ client.patronymic|default:'' }}{% else %}{{ lead.name }}{% endif %}{% endwith %}</div>
+                <div class="lead-email"><i class="fas fa-envelope"></i> {{ lead.email }}</div>
+                <div class="lead-phone"><i class="fas fa-phone"></i> {{ lead.phone }}</div>
+                {% if lead.service %}<div class="lead-service"><i class="fas fa-cog"></i> {{ lead.service.name }}</div>{% endif %}
+                {% if lead.message %}<div class="lead-message">{{ lead.message|truncatechars:100 }}</div>{% endif %}
+                <div class="lead-date"><i class="fas fa-calendar"></i> {{ lead.created_at|date:"d.m.Y H:i" }}</div>
+            </div>
+        </div>
+        {% empty %}<div class="empty-state" style="grid-column:1/-1; text-align:center; padding:50px;"><i class="fas fa-inbox" style="font-size:48px; opacity:0.5;"></i><h3 style="margin-top:15px;">Нет заявок</h3><p style="color:var(--text-secondary);">Заявки появятся здесь после отправки с сайта</p></div>{% endfor %}
+    </div>
+    {% if leads.has_other_pages %}
+    <div class="pagination">
+        {% if leads.has_previous %}<a href="?page=1" class="page-btn">«</a><a href="?page={{ leads.previous_page_number }}" class="page-btn">‹</a>{% endif %}
+        <span class="page-btn active">{{ leads.number }}</span>
+        {% if leads.has_next %}<a href="?page={{ leads.next_page_number }}" class="page-btn">›</a><a href="?page={{ leads.paginator.num_pages }}" class="page-btn">»</a>{% endif %}
+    </div>
+    {% endif %}
+</div>
+<div id="loadingOverlay" class="loading-overlay"><div class="loading-spinner"></div><p>Загрузка...</p></div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/leads/list.js' %}"></script>
+{% endblock %}

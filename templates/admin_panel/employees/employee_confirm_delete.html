@@ -1,0 +1,38 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Удаление сотрудника | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/employees/confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="card-header">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="card-body">
+            <div class="employee-name">{{ employee.full_name|default:employee.username }}</div>
+            <div class="employee-email">{{ employee.email }}</div>
+            <div class="employee-position">{{ employee.position|default:"Должность не указана" }}</div>
+            <div class="warning-text">
+                Вы уверены, что хотите удалить этого сотрудника?<br>
+                <strong>Это действие нельзя отменить.</strong>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <button type="submit">Да, удалить</button>
+                    <a href="{% url 'admin_employees' %}">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/employees/confirm_delete.js' %}"></script>
+{% endblock %}

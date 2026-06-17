@@ -1,0 +1,91 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/services/form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2><i class="fas fa-cogs"></i> {{ title }}</h2>
+            <p>Заполните информацию об услуге. Поля с <span class="required">*</span> обязательны</p>
+        </div>
+        <div class="form-body">
+            <form method="post" enctype="multipart/form-data" id="serviceForm">
+                {% csrf_token %}
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> Название услуги <span class="required">*</span></label>
+                        <input type="text" name="name" id="name" value="{{ service.name|default:'' }}" placeholder="Пример: Комплексная реклама" required>
+                        <div class="field-hint"><i class="fas fa-info-circle"></i> Уникальное название услуги</div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-folder"></i> Категория <span class="required">*</span></label>
+                        <select name="category" id="category" required>
+                            <option value="">Выберите категорию</option>
+                            <option value="ads" {% if service.category == 'ads' %}selected{% endif %}>Контекстная реклама</option>
+                            <option value="target" {% if service.category == 'target' %}selected{% endif %}>Таргетинг</option>
+                            <option value="seo" {% if service.category == 'seo' %}selected{% endif %}>SEO</option>
+                            <option value="smm" {% if service.category == 'smm' %}selected{% endif %}>SMM продвижение</option>
+                            <option value="dev" {% if service.category == 'dev' %}selected{% endif %}>Разработка</option>
+                            <option value="design" {% if service.category == 'design' %}selected{% endif %}>Дизайн</option>
+                        </select>
+                        <div class="field-hint"><i class="fas fa-info-circle"></i> К какой категории относится услуга</div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-ruble-sign"></i> Цена</label>
+                        <input type="text" name="price" id="price" value="{{ service.price|default:'' }}" placeholder="Пример: от 30 000 ₽ или 50 000 ₽">
+                        <div class="field-hint"><i class="fas fa-info-circle"></i> Формат: "от 30 000 ₽" или "50 000 ₽"</div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-sort-numeric-down"></i> Порядок сортировки</label>
+                        <input type="number" name="order" id="order" value="{{ service.order|default:0 }}" min="0" step="1">
+                        <div class="field-hint"><i class="fas fa-info-circle"></i> Чем меньше число, тем выше в списке</div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-align-left"></i> Описание</label>
+                        <textarea name="description" id="description" rows="4" placeholder="Подробное описание услуги...">{{ service.description|default:'' }}</textarea>
+                        <div class="field-hint"><i class="fas fa-info-circle"></i> Основное описание услуги (отображается на странице)</div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-star"></i> Преимущества / Особенности</label>
+                        <textarea name="features" id="features" rows="5" placeholder="Каждое преимущество с новой строки&#10;Например:&#10;- Индивидуальный подход&#10;- Гибкие цены&#10;- Опытная команда">{{ service.features|default:'' }}</textarea>
+                        <div class="field-hint"><i class="fas fa-info-circle"></i> Каждое преимущество с новой строки (маркированный список)</div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-image"></i> Изображение</label>
+                        <div class="image-upload" onclick="document.getElementById('imageInput').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div>Нажмите для выбора файла</div>
+                            <div class="upload-text">Рекомендуемый размер: 200x250px, PNG, JPG</div>
+                        </div>
+                        <input type="file" name="image" id="imageInput" accept="image/*" style="display: none;">
+                        <div id="imagePreview" class="image-preview" {% if service.image %}style="display: block;"{% endif %}>
+                            {% if service.image %}<img src="{{ service.image.url }}" alt="Preview">{% else %}<img src="" alt="Preview">{% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <div class="checkbox-group">
+                            <input type="checkbox" name="is_active" id="is_active" {% if service.is_active or not service %}checked{% endif %}>
+                            <label for="is_active"><i class="fas fa-eye"></i> Отображать услугу на сайте</label>
+                        </div>
+                        <div class="field-hint"><i class="fas fa-info-circle"></i> Если отключено, услуга не будет видна посетителям</div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit"><i class="fas fa-save"></i> {% if service %}Сохранить изменения{% else %}Создать услугу{% endif %}</button>
+                    <a href="{% url 'admin_services' %}" class="btn-cancel"><i class="fas fa-times"></i> Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/services/form.js' %}"></script>
+{% endblock %}

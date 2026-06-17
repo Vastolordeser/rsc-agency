@@ -1,0 +1,173 @@
+﻿/* form.css - Стили для формы добавления клиента */
+
+:root {
+    --accent: #b87333;
+    --accent-light: #e8a05e;
+    --bg-dark: #0a0a0f;
+    --bg-card: #111118;
+    --text-secondary: #b0b0b0;
+    --gradient-gold: linear-gradient(135deg, #b87333, #e8a05e);
+    --shadow-glow: 0 10px 30px rgba(184,115,51,0.2);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    animation: fadeInUp 0.5s ease;
+}
+
+.form-card {
+    background: linear-gradient(135deg, #111118, #0d0d12);
+    border-radius: 28px;
+    border: 1px solid rgba(184,115,51,0.2);
+    padding: 30px;
+    transition: all 0.3s;
+}
+
+.form-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-glow);
+}
+
+.form-title {
+    color: var(--accent);
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-title i {
+    font-size: 24px;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.form-group label i {
+    color: var(--accent);
+    margin-right: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: #0a0a0f;
+    border: 1px solid #2a2a36;
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,115,51,0.1);
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: rgba(184,115,51,0.4);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Required field */
+.required-star {
+    color: #ef4444;
+    margin-left: 3px;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-submit, .btn-cancel {
+    padding: 10px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.btn-submit {
+    background: var(--gradient-gold);
+    color: white;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+    gap: 12px;
+}
+
+.btn-cancel {
+    background: rgba(255,255,255,0.1);
+    color: var(--text-secondary);
+}
+
+.btn-cancel:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 550px) {
+    .form-container {
+        margin: 20px auto;
+        padding: 15px;
+    }
+    
+    .form-card {
+        padding: 20px;
+    }
+    
+    .form-title {
+        font-size: 20px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .btn-submit, .btn-cancel {
+        justify-content: center;
+    }
+}

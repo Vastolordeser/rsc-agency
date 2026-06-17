@@ -1,0 +1,97 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Дашборд | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="particles-bg" id="particlesContainer">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+</div>
+
+<div class="dashboard">
+    <div class="dashboard-header">
+        <div class="header-left">
+            <h1><i class="fas fa-chart-pie"></i> Панель управления</h1>
+            <p>Статистика и аналитика вашего бизнеса в реальном времени</p>
+        </div>
+        <div class="header-right">
+            <div class="header-date"><i class="fas fa-calendar-alt"></i> <span id="currentDate"></span></div>
+            <div class="btn-icon notification-btn" onclick="openNotifications()"><i class="fas fa-bell"></i><span class="badge" id="unreadCount">0</span></div>
+            <div class="btn-icon calendar-btn" onclick="openCalendar()"><i class="fas fa-calendar"></i></div>
+            <div class="btn-icon avatar" onclick="window.location.href='/users/profile/'"><i class="fas fa-user"></i></div>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card"><div class="stat-header"><div class="stat-icon"><i class="fas fa-file-alt"></i></div></div><div class="stat-value"><span id="statTotalLeads">0</span></div><div class="stat-label">Всего заявок</div><div class="progress-bar"><div class="progress-fill fill-primary" id="leadsProgress" style="width: 0%;"></div></div></div>
+        <div class="stat-card"><div class="stat-header"><div class="stat-icon"><i class="fas fa-users"></i></div></div><div class="stat-value"><span id="statTotalClients">0</span></div><div class="stat-label">Клиентов</div><div class="progress-bar"><div class="progress-fill fill-info" id="clientsProgress" style="width: 0%;"></div></div></div>
+        <div class="stat-card"><div class="stat-header"><div class="stat-icon"><i class="fas fa-cogs"></i></div></div><div class="stat-value"><span id="statTotalServices">0</span></div><div class="stat-label">Услуг</div><div class="progress-bar"><div class="progress-fill fill-success" id="servicesProgress" style="width: 0%;"></div></div></div>
+        <div class="stat-card"><div class="stat-header"><div class="stat-icon"><i class="fas fa-briefcase"></i></div></div><div class="stat-value"><span id="statTotalProjects">0</span></div><div class="stat-label">Проектов</div><div class="progress-bar"><div class="progress-fill fill-warning" id="projectsProgress" style="width: 0%;"></div></div></div>
+        <div class="stat-card"><div class="stat-header"><div class="stat-icon"><i class="fas fa-user-tie"></i></div></div><div class="stat-value"><span id="statTotalEmployees">0</span></div><div class="stat-label">Сотрудников</div><div class="progress-bar"><div class="progress-fill fill-purple" id="employeesProgress" style="width: 0%;"></div></div></div>
+        <div class="stat-card"><div class="stat-header"><div class="stat-icon"><i class="fas fa-envelope"></i></div></div><div class="stat-value"><span id="statTotalMessages">0</span></div><div class="stat-label">Сообщений</div><div class="progress-bar"><div class="progress-fill fill-cyan" id="messagesProgress" style="width: 0%;"></div></div></div>
+    </div>
+
+    <div class="grid-2cols">
+        <div class="card">
+            <div class="card-header"><h3><i class="fas fa-chart-line"></i> Динамика заявок</h3><div class="chart-controls"><button class="chart-period-btn active" data-period="7">7 дней</button><button class="chart-period-btn" data-period="14">14 дней</button><button class="chart-period-btn" data-period="30">30 дней</button><button class="chart-period-btn" data-period="90">90 дней</button></div></div>
+            <div class="card-body"><div class="chart-container"><canvas id="leadsChart"></canvas></div></div>
+        </div>
+        <div class="card">
+            <div class="card-header"><h3><i class="fas fa-clock"></i> Последние заявки</h3><a href="/leads/admin/leads/">Все →</a></div>
+            <div class="card-body"><div class="activity-list" id="recentLeadsList"><div class="activity-item"><div class="loader"></div> Загрузка...</div></div></div>
+        </div>
+    </div>
+
+    <div class="grid-3cols">
+        <div class="card">
+            <div class="card-header"><h3><i class="fas fa-star"></i> Популярные услуги</h3><a href="/leads/admin/services/">Все →</a></div>
+            <div class="card-body"><div class="services-list" id="servicesList"><div class="loader"></div> Загрузка...</div></div>
+        </div>
+        <div class="card">
+            <div class="card-header"><h3><i class="fas fa-user-tie"></i> Активные сотрудники</h3><a href="/leads/admin/employees/">Все →</a></div>
+            <div class="card-body"><div class="employees-list" id="employeesList"><div class="loader"></div> Загрузка...</div></div>
+        </div>
+        <div class="card">
+            <div class="card-header"><h3><i class="fas fa-chart-pie"></i> Заявки по статусам</h3></div>
+            <div class="card-body"><div class="status-stats" id="statusStats"><div class="status-item"><div class="status-color status-new"></div><div class="status-info"><div class="status-name">Новые</div></div><div class="status-count" id="statNewLeads">0</div></div><div class="status-item"><div class="status-color status-processing"></div><div class="status-info"><div class="status-name">В обработке</div></div><div class="status-count" id="statProcessingLeads">0</div></div><div class="status-item"><div class="status-color status-completed"></div><div class="status-info"><div class="status-name">Завершённые</div></div><div class="status-count" id="statCompletedLeads">0</div></div><div class="status-item"><div class="status-color status-rejected"></div><div class="status-info"><div class="status-name">Отклонённые</div></div><div class="status-count" id="statRejectedLeads">0</div></div></div></div>
+        </div>
+    </div>
+
+    <div class="quick-actions">
+        <a href="/leads/admin/lead/add/" class="action-btn"><div class="action-icon"><i class="fas fa-file-alt"></i></div><div><div class="action-title">Добавить заявку</div><div class="action-desc">Создать новую заявку от клиента</div></div></a>
+        <a href="/leads/admin/client/add/" class="action-btn"><div class="action-icon"><i class="fas fa-user-plus"></i></div><div><div class="action-title">Добавить клиента</div><div class="action-desc">Создать нового клиента</div></div></a>
+        <a href="/leads/admin/services/create/" class="action-btn"><div class="action-icon"><i class="fas fa-cog"></i></div><div><div class="action-title">Добавить услугу</div><div class="action-desc">Создать новую услугу</div></div></a>
+        <a href="/leads/admin/project/add/" class="action-btn"><div class="action-icon"><i class="fas fa-briefcase"></i></div><div><div class="action-title">Добавить проект</div><div class="action-desc">Создать новый проект</div></div></a>
+    </div>
+</div>
+
+<div id="notificationsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3><i class="fas fa-bell"></i> Уведомления</h3><button class="modal-close" onclick="closeNotifications()">&times;</button></div>
+        <div class="modal-body" id="notificationsList"><div style="text-align: center; padding: 20px;"><div class="loader"></div> Загрузка...</div></div>
+        <div class="modal-footer"><button onclick="closeNotifications()" style="background: linear-gradient(135deg, #b87333, #e8a05e); border: none; padding: 10px 24px; border-radius: 30px; color: white; cursor: pointer;">Закрыть</button></div>
+    </div>
+</div>
+
+<div id="calendarModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header"><h3><i class="fas fa-calendar"></i> Календарь</h3><button class="modal-close" onclick="closeCalendar()">&times;</button></div>
+        <div class="modal-body">
+            <div class="calendar-header"><button class="calendar-nav-btn" onclick="prevMonth()">&lt;</button><span class="calendar-month-year" id="calendarMonthYear"></span><button class="calendar-nav-btn" onclick="nextMonth()">&gt;</button></div>
+            <div class="calendar-weekdays"><div class="calendar-weekday">Пн</div><div class="calendar-weekday">Вт</div><div class="calendar-weekday">Ср</div><div class="calendar-weekday">Чт</div><div class="calendar-weekday">Пт</div><div class="calendar-weekday">Сб</div><div class="calendar-weekday">Вс</div></div>
+            <div class="calendar-days" id="calendarDays"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="{% static 'js/admin_panel/dashboard.js' %}"></script>
+{% endblock %}

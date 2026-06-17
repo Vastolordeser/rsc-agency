@@ -1,0 +1,58 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSC Admin | {% block title %}Панель управления{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/admin_panel/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="/leads/admin/dashboard/">
+                    <img src="/media/logo/logo.png" alt="RSC Admin">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/leads/admin/dashboard/" class="nav-link"><i class="fas fa-chart-line"></i> Дашборд</a></li>
+                <li class="nav-item"><a href="/leads/admin/leads/" class="nav-link"><i class="fas fa-users"></i> Заявки</a></li>
+                <li class="nav-item"><a href="/leads/admin/clients/" class="nav-link"><i class="fas fa-user-friends"></i> Клиенты</a></li>
+                <li class="nav-item"><a href="/leads/admin/services/" class="nav-link"><i class="fas fa-cogs"></i> Услуги</a></li>
+                <li class="nav-item"><a href="/leads/admin/projects/" class="nav-link"><i class="fas fa-briefcase"></i> Проекты</a></li>
+                <li class="nav-item"><a href="/leads/admin/employees/" class="nav-link"><i class="fas fa-user-tie"></i> Сотрудники</a></li>
+                <li class="nav-item"><a href="/leads/admin/messages/" class="nav-link"><i class="fas fa-envelope"></i> Сообщения</a></li>
+                <li class="nav-divider"></li>
+            </ul>
+            <div class="footer-menu">
+                <a href="/" class="nav-link"><i class="fas fa-globe"></i> На сайт</a>
+                <a href="/users/logout/" class="nav-link"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+            </div>
+        </aside>
+        <main class="main-content">
+            {% if messages %}
+            <div class="toast-container">
+                {% for message in messages %}
+                <div class="toast {{ message.tags }}">
+                    {% if message.tags == 'success' %}<i class="fas fa-check-circle"></i>
+                    {% elif message.tags == 'error' %}<i class="fas fa-exclamation-circle"></i>
+                    {% elif message.tags == 'warning' %}<i class="fas fa-exclamation-triangle"></i>
+                    {% else %}<i class="fas fa-info-circle"></i>{% endif %}
+                    <span class="message">{{ message }}</span>
+                    <span class="close" onclick="this.parentElement.remove()">&times;</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <script src="{% static 'js/admin_panel/base.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Удаление заявки | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/leads/confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="icon-wrapper"><i class="fas fa-trash-alt"></i></div>
+        <h2>Удаление заявки</h2>
+        <div class="client-info">
+            <div class="client-info-title"><i class="fas fa-user-circle"></i> Информация о заявителе</div>
+            <div class="client-info-row"><div class="client-info-label"><i class="fas fa-key"></i> Логин</div><div class="client-info-value">{{ lead.user.username|default:"Не указан" }}</div></div>
+            <div class="client-info-row"><div class="client-info-label"><i class="fas fa-user"></i> Имя</div><div class="client-info-value">{{ lead.name }}</div></div>
+            <div class="client-info-row"><div class="client-info-label"><i class="fas fa-envelope"></i> Email</div><div class="client-info-value">{{ lead.email }}</div></div>
+            <div class="client-info-row"><div class="client-info-label"><i class="fas fa-phone"></i> Телефон</div><div class="client-info-value">{{ lead.phone }}</div></div>
+            <div class="client-info-row"><div class="client-info-label"><i class="fas fa-cog"></i> Услуга</div><div class="client-info-value">{{ lead.service.name|default:"Не указана" }}</div></div>
+            <div class="client-info-row"><div class="client-info-label"><i class="fas fa-calendar"></i> Дата создания</div><div class="client-info-value">{{ lead.created_at|date:"d.m.Y H:i" }}</div></div>
+            <div class="client-info-row"><div class="client-info-label"><i class="fas fa-tag"></i> Статус</div><div class="client-info-value"><span class="status-badge status-{{ lead.status }}">{{ lead.get_status_display }}</span></div></div>
+        </div>
+        <div class="warning-box"><p><i class="fas fa-exclamation-triangle"></i> Это действие необратимо. Все данные о заявке будут удалены без возможности восстановления.</p></div>
+        <div class="button-group">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete"><i class="fas fa-trash"></i> Да, удалить</button>
+            </form>
+            <a href="{% url 'admin_leads' %}" class="btn-cancel"><i class="fas fa-times"></i> Отмена</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/leads/confirm_delete.js' %}"></script>
+{% endblock %}

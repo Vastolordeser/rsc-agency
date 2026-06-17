@@ -1,0 +1,134 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Добавить клиента | RSC Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/clients/add.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="clients-bg">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="floating-orb orb-4"></div>
+</div>
+
+<div class="client-add-container">
+    <div class="page-header">
+        <h1><i class="fas fa-user-plus"></i> Добавить клиента</h1>
+        <a href="{% url 'admin_clients' %}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Назад к клиентам
+        </a>
+    </div>
+
+    <div class="form-card">
+        <div class="card-header">
+            <h2><i class="fas fa-id-card"></i> Информация о клиенте</h2>
+            <p>Заполните данные о клиенте. Поля с <span style="color: #ef4444;">*</span> обязательны для заполнения</p>
+        </div>
+
+        <div class="card-body">
+            <form method="post" action="{% url 'admin_client_add' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="fas fa-key"></i> Логин <span class="required">*</span></label>
+                        <input type="text" name="username" placeholder="Логин для входа" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="client@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Имя <span class="required">*</span></label>
+                        <input type="text" name="first_name" placeholder="Имя" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-user-friends"></i> Фамилия</label>
+                        <input type="text" name="last_name" placeholder="Фамилия">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-user-tag"></i> Отчество</label>
+                        <input type="text" name="patronymic" placeholder="Отчество">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Телефон <span class="required">*</span></label>
+                        <input type="tel" name="phone" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-building"></i> Компания</label>
+                        <input type="text" name="company" placeholder="Название компании">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-briefcase"></i> Должность</label>
+                        <input type="text" name="position" placeholder="Должность в компании">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-city"></i> Город</label>
+                        <input type="text" name="city" placeholder="Москва">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-globe"></i> Сайт</label>
+                        <input type="url" name="website" placeholder="https://example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-camera"></i> Аватар</label>
+                        <div class="avatar-upload">
+                            <div class="avatar-preview" id="avatarPreview">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <input type="file" name="avatar" id="avatarInput" accept="image/*" style="padding: 8px;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-map-marker-alt"></i> Адрес</label>
+                        <textarea name="address" rows="2" placeholder="г. Москва, ул. Тверская, д. 1, офис 405"></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-info-circle"></i> О себе / Заметки</label>
+                        <textarea name="bio" rows="3" placeholder="Дополнительная информация о клиенте, пожелания, примечания..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Пароль <span class="required">*</span></label>
+                        <input type="password" name="password" placeholder="Пароль" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Подтверждение пароля <span class="required">*</span></label>
+                        <input type="password" name="password2" placeholder="Повторите пароль" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">
+                        <i class="fas fa-save"></i> Сохранить клиента
+                    </button>
+                    <a href="{% url 'admin_clients' %}" class="btn-cancel">
+                        <i class="fas fa-times"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/clients/add.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,146 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Клиент | {{ client.full_name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/clients/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="clients-bg">
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="floating-orb orb-4"></div>
+</div>
+
+<div class="client-detail">
+    <div class="detail-header">
+        <h1><i class="fas fa-user-circle"></i> {{ client.full_name }}</h1>
+        <a href="{% url 'admin_clients' %}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Назад к клиентам
+        </a>
+    </div>
+
+    <div class="detail-grid">
+        <div class="detail-card">
+            <div class="card-header">
+                <i class="fas fa-id-card"></i>
+                <h3>Основная информация</h3>
+            </div>
+            <div class="card-body">
+                <div class="avatar-large">
+                    {% if client.avatar %}
+                    <img src="{{ client.avatar.url }}?v={{ client.updated_at|date:'U' }}" alt="{{ client.full_name }}">
+                    {% else %}
+                    <div class="avatar-placeholder">
+                        <i class="fas fa-user-astronaut"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-key"></i> Логин</div>
+                        <div class="info-value">{{ client.username }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-user"></i> Имя</div>
+                        <div class="info-value">{{ client.first_name|default:"Не указано" }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-user-friends"></i> Фамилия</div>
+                        <div class="info-value">{{ client.last_name|default:"Не указана" }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-user-tag"></i> Отчество</div>
+                        <div class="info-value">{{ client.patronymic|default:"Не указано" }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-envelope"></i> Email</div>
+                        <div class="info-value">{{ client.email }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-phone"></i> Телефон</div>
+                        <div class="info-value">{{ client.phone|default:"Не указан" }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-briefcase"></i> Должность</div>
+                        <div class="info-value">{{ client.position|default:"Не указана" }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-building"></i> Компания</div>
+                        <div class="info-value">{{ client.company|default:"Не указана" }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-city"></i> Город</div>
+                        <div class="info-value">{{ client.city|default:"Не указан" }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-globe"></i> Сайт</div>
+                        <div class="info-value">
+                            {% if client.website %}
+                            <a href="{{ client.website }}" target="_blank">{{ client.website }}</a>
+                            {% else %}Не указан{% endif %}
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-map-marker-alt"></i> Адрес</div>
+                        <div class="info-value">{{ client.address|default:"Не указан"|truncatechars:50 }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-card">
+            <div class="card-header">
+                <i class="fas fa-chart-line"></i>
+                <h3>Статистика и действия</h3>
+            </div>
+            <div class="card-body">
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ client.total_orders|default:0 }}</div>
+                        <div class="stat-label">Заказов</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">{{ client.total_spent|default:0 }} ₽</div>
+                        <div class="stat-label">Потрачено</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label"><i class="fas fa-calendar-plus"></i> Дата регистрации</div>
+                    <div class="info-value">{{ client.created_at|date:"d.m.Y H:i" }}</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label"><i class="fas fa-clock"></i> Последняя активность</div>
+                    <div class="info-value">{{ client.last_activity|date:"d.m.Y H:i" }}</div>
+                </div>
+                
+                {% if client.bio %}
+                <div class="info-item">
+                    <div class="info-label"><i class="fas fa-info-circle"></i> О себе</div>
+                    <div class="info-value">{{ client.bio|linebreaksbr }}</div>
+                </div>
+                {% endif %}
+                
+                <div class="action-buttons">
+                    <a href="{% url 'admin_client_edit' client.id %}" class="btn-edit">
+                        <i class="fas fa-edit"></i> Редактировать
+                    </a>
+                    <a href="{% url 'admin_client_delete' client.id %}" class="btn-delete">
+                        <i class="fas fa-trash"></i> Удалить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/clients/detail.js' %}"></script>
+{% endblock %}

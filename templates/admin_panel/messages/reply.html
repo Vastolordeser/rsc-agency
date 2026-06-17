@@ -1,0 +1,53 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Ответ на сообщение | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/messages/reply.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="reply-container">
+    <div class="reply-card">
+        <div class="card-header">
+            <div class="header-icon"><i class="fas fa-reply-all"></i></div>
+            <div class="header-text">
+                <h2>Ответ на сообщение</h2>
+                <p><i class="fas fa-paper-plane"></i> Ответ будет отправлен на email: {{ message.email }}</p>
+            </div>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
+            <div class="user-details">
+                <div class="detail-item"><div class="detail-icon"><i class="fas fa-user"></i></div><div class="detail-info"><div class="detail-label">Отправитель</div><div class="detail-value">{{ message.name }}</div></div></div>
+                <div class="detail-item"><div class="detail-icon"><i class="fas fa-envelope"></i></div><div class="detail-info"><div class="detail-label">Email</div><div class="detail-value">{{ message.email }}</div></div></div>
+                <div class="detail-item"><div class="detail-icon"><i class="fas fa-phone"></i></div><div class="detail-info"><div class="detail-label">Телефон</div><div class="detail-value">{{ message.phone|default:"Не указан" }}</div></div></div>
+                <div class="detail-item"><div class="detail-icon"><i class="fas fa-calendar-alt"></i></div><div class="detail-info"><div class="detail-label">Дата получения</div><div class="detail-value">{{ message.created_at|date:"d.m.Y H:i" }}</div></div></div>
+            </div>
+        </div>
+
+        <div class="original-message">
+            <div class="original-header"><i class="fas fa-quote-left"></i><span>Исходное сообщение</span></div>
+            <div class="original-content">{{ message.message|linebreaksbr }}</div>
+        </div>
+
+        <form method="post" class="reply-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label><i class="fas fa-edit"></i> Текст ответа</label>
+                <textarea name="reply_text" placeholder="Введите ваш ответ..." required></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> Отправить ответ</button>
+                <a href="{% url 'admin_messages' %}" class="btn-cancel"><i class="fas fa-times"></i> Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/messages/reply.js' %}"></script>
+{% endblock %}

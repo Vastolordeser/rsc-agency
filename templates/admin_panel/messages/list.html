@@ -1,0 +1,95 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Сообщения | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/messages/list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="messages-container">
+    <div class="messages-header">
+        <h1><i class="fas fa-envelope"></i> Сообщения</h1>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-card" data-filter="all">
+            <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+            <div class="stat-number">{{ messages|length }}</div>
+            <div class="stat-label">Всего</div>
+        </div>
+        <div class="stat-card" data-filter="pending">
+            <div class="stat-icon"><i class="fas fa-clock"></i></div>
+            <div class="stat-number" id="pendingCount">0</div>
+            <div class="stat-label">Ожидают ответа</div>
+        </div>
+        <div class="stat-card" data-filter="processed">
+            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="stat-number" id="processedCount">0</div>
+            <div class="stat-label">Обработано</div>
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="pending">Ожидают ответа</button>
+        <button class="filter-btn" data-filter="processed">Обработано</button>
+    </div>
+
+    <div class="messages-grid" id="messagesGrid">
+        {% for msg in messages %}
+        <div class="message-card" data-status="{% if msg.is_processed %}processed{% else %}pending{% endif %}" data-id="{{ msg.id }}">
+            <div class="message-header">
+                <div class="message-avatar"><i class="fas fa-user-circle"></i></div>
+                <div class="message-info">
+                    <div class="message-name">{{ msg.name|truncatechars:25 }}</div>
+                    <div class="message-email">{{ msg.email }}</div>
+                </div>
+                <span class="badge {% if msg.is_processed %}badge-processed{% else %}badge-pending{% endif %}">
+                    {% if msg.is_processed %}Обработано{% else %}Ожидает{% endif %}
+                </span>
+            </div>
+            <div class="message-body">
+                <div class="message-text">{{ msg.message|truncatechars:120 }}</div>
+            </div>
+            <div class="message-footer">
+                <div class="message-date"><i class="fas fa-calendar-alt"></i> {{ msg.created_at|date:"d.m.Y H:i" }}</div>
+                <div class="message-actions">
+                    <button class="action-btn action-view" onclick="showMessageModal({{ msg.id }})" title="Просмотреть"><i class="fas fa-eye"></i></button>
+                    <a href="{% url 'admin_message_reply' msg.id %}" class="action-btn action-reply" title="Ответить"><i class="fas fa-reply"></i></a>
+                    <a href="{% url 'admin_message_delete' msg.id %}" class="action-btn action-delete" title="Удалить"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <h3>Нет сообщений</h3>
+            <p>Сообщения от клиентов будут отображаться здесь</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-envelope"></i> Детали сообщения</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="modal-field"><label>Отправитель:</label><p id="modalName"></p></div>
+            <div class="modal-field"><label>Email:</label><p id="modalEmail"></p></div>
+            <div class="modal-field"><label>Телефон:</label><p id="modalPhone"></p></div>
+            <div class="modal-field"><label>Дата:</label><p id="modalDate"></p></div>
+            <div class="modal-field"><label>Сообщение:</label><div class="message-text" id="modalMessage"></div></div>
+        </div>
+        <div class="modal-footer"><button onclick="closeModal()" class="action-view" style="width: auto; padding: 8px 20px;">Закрыть</button></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/messages/list.js' %}"></script>
+{% endblock %}

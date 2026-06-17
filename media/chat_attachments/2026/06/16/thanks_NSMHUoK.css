@@ -1,0 +1,49 @@
+﻿/* thanks.css - Стили для страницы благодарности */
+
+.thanks {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.thanks .container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.thanks h1 {
+    font-size: 48px;
+    background: linear-gradient(135deg, #fff, #b87333);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+}
+
+.thanks p {
+    font-size: 18px;
+    color: #b0b0b0;
+    margin-bottom: 30px;
+}
+
+.thanks .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #b87333, #e8a05e);
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.thanks .btn:hover {
+    transform: translateY(-3px);
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(184,115,51,0.4);
+}

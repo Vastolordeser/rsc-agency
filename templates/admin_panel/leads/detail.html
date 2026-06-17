@@ -1,0 +1,74 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Заявка #{{ lead.id }} | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/leads/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="lead-detail-container">
+    <div class="detail-header">
+        <h1><i class="fas fa-file-alt"></i> Заявка #{{ lead.id }}</h1>
+        <a href="{% url 'admin_leads' %}" class="btn-back"><i class="fas fa-arrow-left"></i> Назад к заявкам</a>
+    </div>
+    <div class="detail-grid">
+        <div class="detail-card">
+            <div class="card-header"><i class="fas fa-info-circle"></i><h3>Информация о заявке</h3></div>
+            <div class="card-body">
+                <div class="info-grid">
+                    <div class="info-item"><div class="info-label"><i class="fas fa-key"></i> Логин</div><div class="info-value">{{ lead.user.username|default:"Не указан" }}</div></div>
+                    <div class="info-item"><div class="info-label"><i class="fas fa-user"></i> Имя</div><div class="info-value">{{ client.first_name|default:lead.name }}</div></div>
+                    <div class="info-item"><div class="info-label"><i class="fas fa-user-friends"></i> Фамилия</div><div class="info-value">{{ client.last_name|default:"Не указана" }}</div></div>
+                    <div class="info-item"><div class="info-label"><i class="fas fa-user-tag"></i> Отчество</div><div class="info-value">{{ client.patronymic|default:"Не указано" }}</div></div>
+                    <div class="info-item"><div class="info-label"><i class="fas fa-envelope"></i> Email</div><div class="info-value">{{ lead.email }}</div></div>
+                    <div class="info-item"><div class="info-label"><i class="fas fa-phone"></i> Телефон</div><div class="info-value">{{ lead.phone }}</div></div>
+                    <div class="info-item"><div class="info-label"><i class="fas fa-cog"></i> Услуга</div><div class="info-value">{{ lead.service.name|default:"Не указана" }}</div></div>
+                    <div class="info-item"><div class="info-label"><i class="fas fa-tag"></i> Статус</div><div class="info-value"><span class="status-badge status-{{ lead.status }}">{{ lead.get_status_display }}</span></div></div>
+                    <div class="info-item"><div class="info-label"><i class="fas fa-calendar"></i> Дата создания</div><div class="info-value">{{ lead.created_at|date:"d.m.Y H:i" }}</div></div>
+                </div>
+                {% if lead.message %}<div class="info-item" style="margin-top: 15px;"><div class="info-label"><i class="fas fa-comment"></i> Сообщение</div><div class="info-value">{{ lead.message|linebreaksbr }}</div></div>{% endif %}
+            </div>
+        </div>
+        <div class="detail-card">
+            <div class="card-header"><i class="fas fa-exchange-alt"></i><h3>Изменить статус</h3></div>
+            <div class="card-body">
+                <form method="post" action="{% url 'admin_lead_change_status' lead.id %}" class="status-form">
+                    {% csrf_token %}
+                    <select name="status" class="status-select">
+                        <option value="new" {% if lead.status == 'new' %}selected{% endif %}>🆕 Новая</option>
+                        <option value="processing" {% if lead.status == 'processing' %}selected{% endif %}>⚙️ В обработке</option>
+                        <option value="completed" {% if lead.status == 'completed' %}selected{% endif %}>✅ Завершена</option>
+                        <option value="rejected" {% if lead.status == 'rejected' %}selected{% endif %}>❌ Отклонена</option>
+                    </select>
+                    <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Применить статус</button>
+                </form>
+            </div>
+        </div>
+        <div class="detail-card">
+            <div class="card-header"><i class="fas fa-reply"></i><h3>Ответить на заявку</h3></div>
+            <div class="card-body">
+                <form method="post" action="{% url 'admin_lead_reply' lead.id %}" class="reply-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <textarea name="reply_message" rows="4" placeholder="Введите ваш ответ..."></textarea>
+                    <div><label class="file-attach-btn" onclick="document.getElementById('adminFileInput').click()"><i class="fas fa-paperclip"></i> Прикрепить файлы</label>
+                    <input type="file" name="attachments" multiple style="display: none;" id="adminFileInput">
+                    <div id="adminSelectedFiles" class="selected-files"></div>
+                    <small style="color: #6c6c7a; font-size: 11px;">Можно выбрать несколько файлов</small></div>
+                    <button type="submit" class="btn-reply"><i class="fas fa-paper-plane"></i> Отправить ответ</button>
+                </form>
+                <a href="{% url 'admin_lead_delete' lead.id %}" class="btn-delete" style="display: block; text-align: center;"><i class="fas fa-trash"></i> Удалить заявку</a>
+            </div>
+        </div>
+        <div class="detail-card">
+            <div class="card-header"><i class="fas fa-history"></i><h3>История изменений</h3></div>
+            <div class="card-body"><div class="history-list" id="historyList"><div class="empty-history"><i class="fas fa-spinner fa-spin"></i><p>Загрузка истории...</p></div></div></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/leads/detail.js' %}"></script>
+{% endblock %}

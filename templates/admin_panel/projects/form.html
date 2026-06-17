@@ -1,0 +1,100 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/projects/form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="card-header">
+            <h2><i class="fas fa-folder-open"></i> {{ title }}</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" id="projectForm">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Название *</label>
+                    <input type="text" name="name" required value="{{ project.name|default:'' }}" placeholder="Введите название проекта">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Категория</label>
+                    <select name="category" class="filter-select">
+                        <option value="web" {% if project.category == 'web' %}selected{% endif %}>Веб-разработка</option>
+                        <option value="marketing" {% if project.category == 'marketing' %}selected{% endif %}>Маркетинг</option>
+                        <option value="design" {% if project.category == 'design' %}selected{% endif %}>Дизайн</option>
+                        <option value="smm" {% if project.category == 'smm' %}selected{% endif %}>SMM продвижение</option>
+                        <option value="seo" {% if project.category == 'seo' %}selected{% endif %}>SEO</option>
+                        <option value="other" {% if project.category == 'other' or not project.category %}selected{% endif %}>Другое</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-flag-checkered"></i> Статус</label>
+                    <select name="status" class="filter-select">
+                        <option value="active" {% if project.status == 'active' or not project.status %}selected{% endif %}>Активен</option>
+                        <option value="inactive" {% if project.status == 'inactive' %}selected{% endif %}>Неактивен</option>
+                        <option value="completed" {% if project.status == 'completed' %}selected{% endif %}>Завершён</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-building"></i> Клиент</label>
+                    <input type="text" name="client" value="{{ project.client|default:'' }}" placeholder="Клиент или компания">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> Описание</label>
+                    <textarea name="description" placeholder="Подробное описание проекта..." rows="5">{{ project.description|default:'' }}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-link"></i> Ссылка на проект</label>
+                    <input type="url" name="link" value="{{ project.link|default:'' }}" placeholder="https://example.com/project">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-chart-line"></i> Результат проекта</label>
+                    <input type="text" name="result" value="{{ project.result|default:'' }}" placeholder="Например: +40% продаж, 1000+ лидов">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-sort-numeric-down"></i> Порядок сортировки</label>
+                    <input type="number" name="sort_order" value="{{ project.sort_order|default:0 }}" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> Изображение</label>
+                    <input type="file" name="image" accept="image/*" id="imageInput" onchange="previewImage(this)">
+                    <div class="image-preview" id="imagePreview">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="Текущее изображение">
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="is_active" {% if project.is_active or not project %}checked{% endif %}>
+                        <i class="fas fa-eye"></i> Отображать на сайте
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-save"><i class="fas fa-save"></i> Сохранить</button>
+                    <a href="{% url 'admin_projects' %}" class="btn-cancel"><i class="fas fa-times"></i> Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/projects/form.js' %}"></script>
+{% endblock %}

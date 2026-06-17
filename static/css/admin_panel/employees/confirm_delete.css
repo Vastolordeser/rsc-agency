@@ -1,0 +1,202 @@
+﻿:root {
+    --accent: #b87333;
+    --text-secondary: #b0b0b0;
+    --danger: #ef4444;
+    --danger-dark: #dc2626;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes pulseRed {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+    }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.delete-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 25px;
+    animation: fadeInUp 0.5s ease;
+}
+
+.delete-card {
+    background: linear-gradient(135deg, #111118, #0d0d12);
+    border-radius: 28px;
+    border: 1px solid rgba(239,68,68,0.3);
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.delete-card:hover {
+    border-color: var(--danger);
+    box-shadow: 0 0 30px rgba(239,68,68,0.2);
+}
+
+.card-header {
+    padding: 20px;
+    background: rgba(239,68,68,0.1);
+    border-bottom: 1px solid rgba(239,68,68,0.2);
+}
+
+.card-header i {
+    font-size: 48px;
+    color: var(--danger);
+    animation: shake 0.5s ease infinite, pulseRed 2s infinite;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+.employee-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--danger);
+    margin: 15px 0;
+    background: rgba(239,68,68,0.1);
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 40px;
+    animation: scaleIn 0.3s ease;
+}
+
+.employee-email {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.employee-position {
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 15px;
+}
+
+.warning-text {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.form-actions button[type="submit"] {
+    flex: 1;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 4px 15px rgba(239,68,68,0.3);
+    min-width: 120px;
+}
+
+.form-actions button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(239,68,68,0.5);
+    gap: 15px;
+}
+
+.form-actions button[type="submit"]:active {
+    transform: scale(0.95);
+}
+
+.form-actions a {
+    flex: 1;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: 1px solid rgba(184,115,51,0.2);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: rgba(17,17,24,0.8);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 120px;
+}
+
+.form-actions a:hover {
+    border-color: var(--accent);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(184,115,51,0.15);
+}
+
+/* ========== АДАПТИВ ========== */
+@media (max-width: 500px) {
+    .delete-container {
+        margin: 30px auto;
+        padding: 15px;
+    }
+    
+    .delete-card {
+        border-radius: 24px;
+    }
+    
+    .card-header {
+        padding: 15px;
+    }
+    
+    .card-header i {
+        font-size: 36px;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .employee-name {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+    
+    .warning-text {
+        font-size: 13px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions button[type="submit"],
+    .form-actions a {
+        width: 100%;
+    }
+}

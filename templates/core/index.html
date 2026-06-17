@@ -1,0 +1,166 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Главная | RSC Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/core/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-bg">
+        <div class="bg-gradient"></div>
+        <div class="bg-particles" id="particles"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">КРЕАТИВНОЕ РЕКЛАМНОЕ АГЕНТСТВО</div>
+            <h1>Создаём рекламу, которая работает на результат</h1>
+            <p>Современные рекламные решения для вашего бизнеса. Мы помогаем компаниям расти и достигать новых высот.</p>
+            <a href="{% url 'lead_create' %}" class="btn-hero"><i class="fas fa-rocket"></i> Оставить заявку →</a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">Почему выбирают <span>нас</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Рост продаж</h3>
+                <p>Увеличиваем конверсию и прибыль вашего бизнеса до 300% за 3 месяца</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Быстрый старт</h3>
+                <p>Запускаем рекламные кампании в кратчайшие сроки — от 3 дней</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                <h3>Поддержка 24/7</h3>
+                <p>Всегда на связи, решаем любые вопросы в любое время</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-simple"></i></div>
+                <h3>Прозрачная отчётность</h3>
+                <p>Детальная аналитика каждого этапа работы в реальном времени</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services">
+    <div class="container">
+        <h2 class="section-title">Наши <span>услуги</span></h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Контекстная реклама</h3>
+                <p>Привлекаем целевую аудиторию через Яндекс.Директ и Google Ads. Максимальная эффективность и прозрачность.</p>
+                <a href="{% url 'services' %}" class="service-link">Подробнее →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-hashtag"></i></div>
+                <h3>SMM продвижение</h3>
+                <p>Ведение социальных сетей, создание контента, работа с блогерами. Увеличиваем узнаваемость бренда.</p>
+                <a href="{% url 'services' %}" class="service-link">Подробнее →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-search"></i></div>
+                <h3>SEO оптимизация</h3>
+                <p>Вывод сайта в топ выдачи, увеличение органического трафика. Комплексный подход к продвижению.</p>
+                <a href="{% url 'services' %}" class="service-link">Подробнее →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-code"></i></div>
+                <h3>Разработка сайтов</h3>
+                <p>Создание современных сайтов и интернет-магазинов под ключ. Адаптивный дизайн и высокая скорость.</p>
+                <a href="{% url 'services' %}" class="service-link">Подробнее →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-palette"></i></div>
+                <h3>Веб-дизайн</h3>
+                <p>Уникальный дизайн, который выделит ваш бренд среди конкурентов. UI/UX подход к каждому проекту.</p>
+                <a href="{% url 'services' %}" class="service-link">Подробнее →</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>Аналитика и стратегия</h3>
+                <p>Разрабатываем стратегии продвижения, анализируем рынок и конкурентов для максимальной эффективности.</p>
+                <a href="{% url 'services' %}" class="service-link">Подробнее →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials">
+    <div class="container">
+        <h2 class="section-title">Что говорят <span>клиенты</span></h2>
+        <div class="testimonials-carousel" id="testimonialsCarousel">
+            <div class="testimonial-slide active">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                    <div class="testimonial-text">"Отличное агентство! Сделали рекламу, которая реально приносит клиентов. Рекомендую! За 2 года сотрудничества увеличили выручку на 156%."</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user-circle"></i></div>
+                        <div><div class="author-name">Анна Иванова</div><div class="author-position">CEO, ООО "Старт"</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                    <div class="testimonial-text">"Профессиональный подход, креативные идеи, результат превзошёл ожидания! Охваты выросли на 300% за первый месяц работы."</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user-circle"></i></div>
+                        <div><div class="author-name">Михаил Петров</div><div class="author-position">Маркетолог, "ТехноСтарт"</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                    <div class="testimonial-text">"Лучшее агентство по SMM! Увеличили охваты в 5 раз за 3 месяца. Спасибо команде за крутую работу!"</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user-circle"></i></div>
+                        <div><div class="author-name">Елена Смирнова</div><div class="author-position">Владелец бренда</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                    <div class="testimonial-text">"Благодаря RSC Agency мы вышли на новый уровень. Профессионализм, скорость и качество — вот что отличает эту команду."</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user-circle"></i></div>
+                        <div><div class="author-name">Дмитрий Козлов</div><div class="author-position">Директор по развитию</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <div class="cta-block">
+            <h2>Будьте в курсе новостей</h2>
+            <p>Подпишитесь на нашу рассылку и получайте свежие идеи для бизнеса первыми</p>
+            <form class="cta-form" method="post" action="{% url 'contact_submit' %}">
+                {% csrf_token %}
+                <input type="email" name="email" placeholder="Ваш email" required>
+                <input type="hidden" name="name" value="Подписчик">
+                <input type="hidden" name="message" value="Подписка на рассылку">
+                <button type="submit" class="btn-cta">Подписаться →</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/core/index.js' %}"></script>
+{% endblock %}

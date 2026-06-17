@@ -1,0 +1,22 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Спасибо за заявку | RSC Agency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/leads/thanks.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="thanks">
+    <div class="container">
+        <h1>Спасибо за заявку!</h1>
+        <p>Мы свяжемся с вами в ближайшее время.</p>
+        <a href="{% url 'index' %}" class="btn">На главную</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/leads/thanks.js' %}"></script>
+{% endblock %}

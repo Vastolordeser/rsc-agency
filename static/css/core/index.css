@@ -1,0 +1,508 @@
+﻿/* index.css - Стили для главной страницы */
+
+/* ========== ПРЕМИАЛЬНЫЕ АНИМАЦИИ ========== */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+@keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(184,115,51,0.3); }
+    50% { box-shadow: 0 0 30px rgba(184,115,51,0.8); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+@keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+@keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { opacity: 1; transform: scale(1.05); }
+    70% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+@keyframes wave {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ========== ОСНОВНЫЕ СТИЛИ ========== */
+.hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 6rem 0;
+}
+
+/* Анимированный фон */
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-gradient {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    top: -25%;
+    left: -25%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(184,115,51,0.15), transparent 70%);
+    animation: rotateSlow 30s linear infinite;
+}
+
+.bg-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(184,115,51,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(184,115,51,0.2);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: #b87333;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(184,115,51,0.3);
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, #b87333, #d48c4a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+    animation: gradientShift 3s ease infinite;
+    background-size: 200% 200%;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #b0b0b0;
+    margin-bottom: 2rem;
+}
+
+.btn-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #b87333, #d48c4a);
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    animation: pulseGlow 2s infinite;
+}
+
+.btn-hero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(184,115,51,0.5);
+}
+
+/* Секция преимуществ */
+.features {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #111118, #0a0a0f);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title span {
+    color: #b87333;
+    position: relative;
+}
+
+.section-title span::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #b87333, transparent);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.feature-card {
+    background: #111118;
+    border-radius: 28px;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(184,115,51,0.2);
+    transition: all 0.4s;
+    animation: fadeInUp 0.5s ease backwards;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    border-color: #b87333;
+    box-shadow: 0 20px 35px -12px rgba(184,115,51,0.3);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(184,115,51,0.1);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: #b87333;
+    transition: all 0.3s;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: rgba(184,115,51,0.2);
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.feature-card p {
+    color: #b0b0b0;
+    line-height: 1.6;
+}
+
+/* Секция услуг */
+.services {
+    padding: 5rem 0;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.service-card {
+    background: linear-gradient(145deg, #111118, #0c0c14);
+    border-radius: 28px;
+    padding: 2rem;
+    border: 1px solid rgba(184,115,51,0.2);
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(184,115,51,0.1), transparent);
+    transition: left 0.6s;
+}
+
+.service-card:hover::before {
+    left: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: #b87333;
+    box-shadow: 0 20px 35px -12px rgba(184,115,51,0.3);
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(184,115,51,0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #b87333;
+}
+
+.service-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: #b0b0b0;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #b87333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: gap 0.3s;
+}
+
+.service-link:hover {
+    gap: 0.8rem;
+}
+
+/* Секция отзывов */
+.testimonials {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #111118, #0a0a0f);
+}
+
+.testimonials-carousel {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 300px;
+}
+
+.testimonial-slide {
+    display: none;
+    animation: fadeInUp 0.5s ease;
+}
+
+.testimonial-slide.active {
+    display: block;
+}
+
+.testimonial-card {
+    background: #111118;
+    border-radius: 28px;
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid rgba(184,115,51,0.2);
+    position: relative;
+}
+
+.testimonial-quote {
+    font-size: 3rem;
+    color: #b87333;
+    opacity: 0.3;
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: #b0b0b0;
+    line-height: 1.6;
+    margin: 2rem 0 1.5rem;
+    font-size: 1.1rem;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    background: rgba(184,115,51,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #b87333;
+}
+
+.author-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.author-position {
+    font-size: 0.8rem;
+    color: #b0b0b0;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #2a2a36;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: #b87333;
+    width: 25px;
+    border-radius: 5px;
+}
+
+/* Секция CTA */
+.cta {
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.cta-block {
+    background: linear-gradient(135deg, rgba(184,115,51,0.1), transparent);
+    border-radius: 48px;
+    padding: 4rem;
+    border: 1px solid rgba(184,115,51,0.3);
+}
+
+.cta h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.cta p {
+    color: #b0b0b0;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-form {
+    display: flex;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.cta-form input {
+    flex: 1;
+    padding: 1rem 1.2rem;
+    background: #0a0a0f;
+    border: 1px solid rgba(184,115,51,0.3);
+    border-radius: 50px;
+    color: white;
+    font-size: 1rem;
+}
+
+.cta-form input:focus {
+    outline: none;
+    border-color: #b87333;
+}
+
+.btn-cta {
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #b87333, #d48c4a);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(184,115,51,0.4);
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    .cta-form {
+        flex-direction: column;
+    }
+    .cta-block {
+        padding: 2rem;
+    }
+}

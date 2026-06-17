@@ -1,0 +1,39 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Удаление сообщения | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/messages/confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="card-header">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="card-body">
+            <div class="warning-text">
+                Вы уверены, что хотите удалить сообщение от <strong>{{ message.name }}</strong>?<br>
+                Это действие нельзя отменить.
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-actions">
+                    <button type="submit" class="btn-delete">
+                        <i class="fas fa-trash"></i> Да, удалить
+                    </button>
+                    <a href="{% url 'admin_messages' %}" class="btn-cancel">
+                        <i class="fas fa-times"></i> Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/messages/confirm_delete.js' %}"></script>
+{% endblock %}

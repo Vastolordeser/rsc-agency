@@ -1,0 +1,30 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Создание заявки | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/leads/add.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="add-container">
+    <div class="form-card">
+        <div class="form-title"><i class="fas fa-plus-circle"></i><h2>Создание заявки</h2></div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group"><label><i class="fas fa-user"></i> Имя *</label><input type="text" name="name" required></div>
+            <div class="form-group"><label><i class="fas fa-envelope"></i> Email *</label><input type="email" name="email" required></div>
+            <div class="form-group"><label><i class="fas fa-phone"></i> Телефон *</label><input type="tel" name="phone" required></div>
+            <div class="form-group"><label><i class="fas fa-tag"></i> Статус</label><select name="status"><option value="new">🟡 Новая</option><option value="processing">🔵 В обработке</option><option value="completed">🟢 Завершена</option><option value="rejected">🔴 Отклонена</option></select></div>
+            <div class="form-group"><label><i class="fas fa-cogs"></i> Услуга</label><select name="service"><option value="">-- Выберите услугу --</option>{% for service in services %}<option value="{{ service.id }}">{{ service.name }}</option>{% endfor %}</select></div>
+            <div class="form-group"><label><i class="fas fa-comment"></i> Сообщение</label><textarea name="message" rows="4"></textarea></div>
+            <div class="button-group"><button type="submit" class="btn-submit"><i class="fas fa-save"></i> Сохранить</button><a href="{% url 'admin_leads' %}" class="btn-cancel"><i class="fas fa-times"></i> Отмена</a></div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/leads/add.js' %}"></script>
+{% endblock %}

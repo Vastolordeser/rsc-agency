@@ -1,0 +1,36 @@
+﻿{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block title %}Удаление услуги | RSC Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_panel/services/confirm_delete.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <div class="delete-card">
+        <div class="delete-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2 class="delete-title">Удаление услуги</h2>
+        <div class="delete-text">
+            Вы уверены, что хотите удалить услугу <strong class="service-name">{{ service.name }}</strong>?
+        </div>
+        <div class="warning-box">
+            <p><i class="fas fa-exclamation-triangle"></i> Это действие невозможно отменить. Все данные об услуге будут удалены безвозвратно.</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="delete-actions">
+                <button type="submit" class="btn-delete-confirm"><i class="fas fa-trash"></i> Да, удалить</button>
+                <a href="{% url 'admin_services' %}" class="btn-delete-cancel"><i class="fas fa-times"></i> Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin_panel/services/confirm_delete.js' %}"></script>
+{% endblock %}
